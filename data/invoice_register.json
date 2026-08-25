@@ -1,0 +1,26 @@
+[
+  {
+    "vendor_id": "V-1002",
+    "invoice_number": "SIS/2026/118",
+    "total": 106200.00,
+    "status": "PAID",
+    "paid_on": "2026-08-02",
+    "note": "Steel sheet order, paid in payment run PR-2026-31"
+  },
+  {
+    "vendor_id": "V-1003",
+    "invoice_number": "BO/2026/072",
+    "total": 141600.00,
+    "status": "REJECTED",
+    "rejected_on": "2026-08-10",
+    "note": "Rejected: GST charged as CGST/SGST instead of IGST. Vendor asked to reissue."
+  },
+  {
+    "vendor_id": "V-1001",
+    "invoice_number": "TC/2026/301",
+    "total": 36344.00,
+    "status": "PAID",
+    "paid_on": "2026-07-28",
+    "note": "Bracket order, paid in payment run PR-2026-30"
+  }
+]

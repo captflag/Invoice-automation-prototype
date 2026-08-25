@@ -1,0 +1,102 @@
+[
+  {
+    "po_number": "PO-7001", "vendor_id": "V-1001", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "BRKT-90", "description": "Steel mounting bracket 90mm", "qty_ordered": 500, "unit_price": 80.00},
+      {"item_code": "FSTNR-12", "description": "Hex fastener M12", "qty_ordered": 1000, "unit_price": 12.00}
+    ]
+  },
+  {
+    "po_number": "PO-7002", "vendor_id": "V-1002", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "STEEL-SHT", "description": "CR steel sheet 2mm", "qty_ordered": 200, "unit_price": 450.00}
+    ]
+  },
+  {
+    "po_number": "PO-7003", "vendor_id": "V-1003", "type": "services",
+    "currency": "INR", "payment_terms": "NET45",
+    "lines": [
+      {"item_code": "SVC-CONSULT", "description": "ERP advisory retainer — Aug 2026", "qty_ordered": 1, "unit_price": 350000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7004", "vendor_id": "V-1004", "type": "services",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "SVC-FACILITY", "description": "Facility management — Aug 2026", "qty_ordered": 1, "unit_price": 40000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7005", "vendor_id": "V-1001", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "MOTOR-5H", "description": "5HP induction motor", "qty_ordered": 60, "unit_price": 15000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7006", "vendor_id": "V-1002", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "GASKET-3", "description": "Rubber gasket 3in", "qty_ordered": 400, "unit_price": 55.00}
+    ]
+  },
+  {
+    "po_number": "PO-7007", "vendor_id": "V-1005", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "TOOL-CRB", "description": "Carbide cutting tool", "qty_ordered": 50, "unit_price": 700.00}
+    ]
+  },
+  {
+    "po_number": "PO-7008", "vendor_id": "V-1004", "type": "services",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "SVC-DEEPCLEAN", "description": "Industrial deep-clean, Block C", "qty_ordered": 1, "unit_price": 75000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7009", "vendor_id": "V-1001", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "BRKT-90", "description": "Steel mounting bracket 90mm", "qty_ordered": 500, "unit_price": 80.00}
+    ]
+  },
+  {
+    "po_number": "PO-7010", "vendor_id": "V-1003", "type": "services",
+    "currency": "INR", "payment_terms": "NET45",
+    "lines": [
+      {"item_code": "SVC-DATAMIG", "description": "Data migration services", "qty_ordered": 1, "unit_price": 45000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7011", "vendor_id": "V-1003", "type": "services",
+    "currency": "INR", "payment_terms": "NET45",
+    "lines": [
+      {"item_code": "SVC-TRAINING", "description": "ERP end-user training", "qty_ordered": 1, "unit_price": 120000.00}
+    ]
+  },
+  {
+    "po_number": "PO-7012", "vendor_id": "V-1002", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "PIPE-25", "description": "MS pipe 25mm x 6m", "qty_ordered": 100, "unit_price": 320.00}
+    ]
+  },
+  {
+    "po_number": "PO-7014", "vendor_id": "V-1002", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "VALVE-2", "description": "Ball valve 2in", "qty_ordered": 80, "unit_price": 250.00}
+    ]
+  },
+  {
+    "po_number": "PO-7015", "vendor_id": "V-1001", "type": "goods",
+    "currency": "INR", "payment_terms": "NET30",
+    "lines": [
+      {"item_code": "BRKT-90", "description": "Steel mounting bracket 90mm", "qty_ordered": 500, "unit_price": 80.00},
+      {"item_code": "FSTNR-12", "description": "Hex fastener M12", "qty_ordered": 500, "unit_price": 12.00}
+    ]
+  }
+]

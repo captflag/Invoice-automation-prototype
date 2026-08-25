@@ -1,0 +1,57 @@
+[
+  {
+    "vendor_id": "V-1001",
+    "name": "Tvarita Components Pvt Ltd",
+    "gstin": "29AABCT1332L1ZA",
+    "state_code": "29",
+    "payment_terms": "NET30",
+    "currency": "INR",
+    "bank_account_on_file": "HDFC-XXXX-4471",
+    "category": "goods",
+    "invoices_processed": 87
+  },
+  {
+    "vendor_id": "V-1002",
+    "name": "Shakti Industrial Supplies",
+    "gstin": "29AAACS4699R1Z8",
+    "state_code": "29",
+    "payment_terms": "NET30",
+    "currency": "INR",
+    "bank_account_on_file": "ICICI-XXXX-9902",
+    "category": "goods",
+    "invoices_processed": 143
+  },
+  {
+    "vendor_id": "V-1003",
+    "name": "BlueOrbit Consulting LLP",
+    "gstin": "27AADCB2230M1ZT",
+    "state_code": "27",
+    "payment_terms": "NET45",
+    "currency": "INR",
+    "bank_account_on_file": "AXIS-XXXX-1180",
+    "category": "services",
+    "invoices_processed": 31
+  },
+  {
+    "vendor_id": "V-1004",
+    "name": "Fairfield Facility Services",
+    "gstin": "07AAGFF2194N1Z1",
+    "state_code": "07",
+    "payment_terms": "NET30",
+    "currency": "INR",
+    "bank_account_on_file": "SBI-XXXX-6634",
+    "category": "services",
+    "invoices_processed": 58
+  },
+  {
+    "vendor_id": "V-1005",
+    "name": "Deccan Precision Tools",
+    "gstin": "29AABCD9988E1Z3",
+    "state_code": "29",
+    "payment_terms": "NET30",
+    "currency": "INR",
+    "bank_account_on_file": "KOTAK-XXXX-2217",
+    "category": "goods",
+    "invoices_processed": 0
+  }
+]

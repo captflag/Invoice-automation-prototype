@@ -1,0 +1,31 @@
+[
+  {"grn_number": "GRN-9001", "po_number": "PO-7001", "lines": [
+    {"item_code": "BRKT-90", "qty_received": 500},
+    {"item_code": "FSTNR-12", "qty_received": 1000}
+  ]},
+  {"grn_number": "GRN-9002", "po_number": "PO-7002", "lines": [
+    {"item_code": "STEEL-SHT", "qty_received": 150}
+  ]},
+  {"grn_number": "GRN-9005", "po_number": "PO-7005", "lines": [
+    {"item_code": "MOTOR-5H", "qty_received": 60}
+  ]},
+  {"grn_number": "GRN-9006", "po_number": "PO-7006", "lines": [
+    {"item_code": "GASKET-3", "qty_received": 400}
+  ]},
+  {"grn_number": "GRN-9007", "po_number": "PO-7007", "lines": [
+    {"item_code": "TOOL-CRB", "qty_received": 50}
+  ]},
+  {"grn_number": "GRN-9009", "po_number": "PO-7009", "lines": [
+    {"item_code": "BRKT-90", "qty_received": 500}
+  ]},
+  {"grn_number": "GRN-9012", "po_number": "PO-7012", "lines": [
+    {"item_code": "PIPE-25", "qty_received": 100}
+  ]},
+  {"grn_number": "GRN-9014", "po_number": "PO-7014", "lines": [
+    {"item_code": "VALVE-2", "qty_received": 80}
+  ]},
+  {"grn_number": "GRN-9015", "po_number": "PO-7015", "lines": [
+    {"item_code": "BRKT-90", "qty_received": 500},
+    {"item_code": "FSTNR-12", "qty_received": 500}
+  ]}
+]

@@ -1,0 +1,349 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #F6F7F9; --surface: #FFFFFF; --surface2: #EDF0F4;
+    --ink: #1B2733; --ink2: #4A5866; --ink3: #7A8794;
+    --line: #D9DEE5; --accent: #24527E; --accent-ink: #FFFFFF;
+    --ok: #2E8540; --info: #2F6FB1; --warn: #C77700; --crit: #B23B34;
+    --ok-bg: #E5F2E8; --info-bg: #E7EFF8; --warn-bg: #F7EEDD; --crit-bg: #F6E7E5;
+    --chip-bg: #1B2733; --chip-ink: #F6F7F9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141C26; --surface: #1B2634; --surface2: #22303F;
+      --ink: #E4EAF0; --ink2: #A6B2BE; --ink3: #76828E;
+      --line: #2E3C4C; --accent: #7FA8CE; --accent-ink: #10202F;
+      --ok: #3B9E5F; --info: #4E8CC9; --warn: #BB861F; --crit: #C24A42;
+      --ok-bg: #1B3223; --info-bg: #1A2C40; --warn-bg: #372A14; --crit-bg: #3A1F1C;
+      --chip-bg: #E4EAF0; --chip-ink: #141C26;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141C26; --surface: #1B2634; --surface2: #22303F;
+    --ink: #E4EAF0; --ink2: #A6B2BE; --ink3: #76828E;
+    --line: #2E3C4C; --accent: #7FA8CE; --accent-ink: #10202F;
+    --ok: #3B9E5F; --info: #4E8CC9; --warn: #BB861F; --crit: #C24A42;
+    --ok-bg: #1B3223; --info-bg: #1A2C40; --warn-bg: #372A14; --crit-bg: #3A1F1C;
+    --chip-bg: #E4EAF0; --chip-ink: #141C26;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 15px/1.55 "Public Sans", "Segoe UI", system-ui, sans-serif;
+    padding: 40px 20px 72px;
+  }
+  .wrap { max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+  h1, h2 { font-family: "Archivo", "Public Sans", sans-serif; text-wrap: balance; }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); text-transform: uppercase; }
+  .sub { color: var(--ink2); max-width: 68ch; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  .invariants { display: flex; flex-wrap: wrap; gap: 10px; }
+  .invariant {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--ok);
+    padding: 8px 14px; border-radius: 4px; font-size: 13.5px; color: var(--ink2);
+  }
+  .invariant b { color: var(--ink); font-weight: 600; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px 12px; }
+  .kpi .label { font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); font-weight: 600; }
+  .kpi .value { font-family: "Archivo", sans-serif; font-size: 28px; font-weight: 600; margin-top: 2px; font-variant-numeric: tabular-nums; }
+  .kpi .hint { font-size: 12.5px; color: var(--ink3); margin-top: 2px; }
+
+  .bar { display: flex; gap: 2px; height: 26px; border-radius: 4px; overflow: hidden; background: var(--bg); }
+  .bar div { min-width: 8px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; font-size: 13px; color: var(--ink2); }
+  .legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
+  .filters button {
+    font: 600 12.5px "Public Sans", sans-serif; color: var(--ink2);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 5px 13px; cursor: pointer;
+  }
+  .filters button:hover { border-color: var(--accent); color: var(--accent); }
+  .filters button.on { background: var(--chip-bg); color: var(--chip-ink); border-color: var(--chip-bg); }
+  .filters button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+  table { border-collapse: collapse; width: 100%; min-width: 880px; font-size: 14px; }
+  th { font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink3);
+       text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); font-weight: 600; }
+  th.r, td.r { text-align: right; }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr.row { cursor: pointer; }
+  tr.row:hover td { background: var(--surface2); }
+  tr.row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  tr:last-child td { border-bottom: none; }
+  .caret { color: var(--ink3); font-size: 11px; display: inline-block; width: 12px; }
+
+  .pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+          padding: 2.5px 10px; border-radius: 999px; white-space: nowrap; }
+  .pill.ok   { color: var(--ok);   background: var(--ok-bg); }
+  .pill.info { color: var(--info); background: var(--info-bg); }
+  .pill.warn { color: var(--warn); background: var(--warn-bg); }
+  .pill.crit { color: var(--crit); background: var(--crit-bg); }
+  .tier { font-size: 11.5px; font-weight: 600; color: var(--ink2); background: var(--surface2);
+          border: 1px solid var(--line); border-radius: 3px; padding: 1.5px 7px; white-space: nowrap; }
+
+  .detail { background: var(--surface2); }
+  .detail-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; padding: 16px 18px 18px; }
+  @media (max-width: 800px) { .detail-inner { grid-template-columns: 1fr; } }
+  .detail h3 { font-size: 11.5px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink3); margin: 12px 0 6px; }
+  .detail h3:first-child { margin-top: 0; }
+  .check { display: flex; gap: 8px; font-size: 13px; padding: 2.5px 0; color: var(--ink2); }
+  .check .mark { font-weight: 700; width: 14px; flex: none; }
+  .check.pass .mark { color: var(--ok); } .check.fail .mark { color: var(--crit); }
+  .check .name { color: var(--ink); font-weight: 500; }
+  .note, .exc, .draft { font-size: 13px; color: var(--ink2); border-left: 2px solid var(--line);
+                        padding: 4px 10px; margin-bottom: 6px; }
+  .exc { border-left-color: var(--crit); }
+  .exc b { color: var(--crit); font-weight: 600; }
+  .draft { border-left-color: var(--info); }
+  .draft .to { color: var(--info); font-weight: 600; }
+  .kv { font-size: 13px; color: var(--ink2); } .kv b { color: var(--ink); font-weight: 600; }
+
+  .queues { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .queue { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; }
+  .queue .qname { font-weight: 600; font-size: 14px; }
+  .queue .owner { font-size: 12px; color: var(--ink3); margin-bottom: 8px; }
+  .queue li { font-size: 13px; color: var(--ink2); margin-left: 18px; }
+
+  .audit { background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+           max-height: 420px; overflow: auto; font-size: 12.5px; }
+  .audit-row { display: grid; grid-template-columns: 44px 170px 240px 1fr 150px; gap: 12px;
+               padding: 5px 14px; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .audit-row:last-child { border-bottom: none; }
+  .audit-row .actor { color: var(--accent); font-weight: 500; }
+  .audit-row .event { color: var(--ink); }
+  .audit-row .det { color: var(--ink2); overflow-wrap: anywhere; }
+  .audit-row .hash { color: var(--ink3); text-align: right; }
+  .badge-ok { color: var(--ok); font-weight: 600; }
+  footer { font-size: 13px; color: var(--ink3); border-top: 1px solid var(--line); padding-top: 16px; }
+  footer code { font-family: "IBM Plex Mono", monospace; color: var(--ink2); background: var(--surface2);
+                padding: 1px 6px; border-radius: 3px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Meridian Manufacturing · AP Automation Prototype</div>
+    <h1 style="margin:6px 0 8px">Invoice Control Tower</h1>
+    <p class="sub">One batch of 20 inbound documents run through the seven-agent pipeline —
+    intake, extraction, validation, matching, triage, posting, audit. The sample is deliberately
+    exception-heavy: it exists to prove every failure path lands with the right person, never in a payment.</p>
+  </header>
+
+  <section class="invariants" id="invariants"></section>
+
+  <section>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section>
+    <h2>Where the batch landed</h2>
+    <p class="sub" style="font-size:13.5px">Counts by disposition. Hover a segment for detail.</p>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-top:10px">
+      <div class="bar" id="bar"></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Every invoice, every decision</h2>
+    <p class="sub" style="font-size:13.5px">Click a row for its checks, exceptions, drafted messages, and audit slice.</p>
+    <div class="filters" id="filters"></div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th></th><th>Work item</th><th>Invoice</th><th>Vendor</th><th>Source</th>
+          <th class="r">Total (₹)</th><th>Outcome</th><th>Waiting on</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Human queues</h2>
+    <p class="sub" style="font-size:13.5px">The AI proposes; these people dispose. Each queue has one owner.</p>
+    <div class="queues" id="queues" style="margin-top:10px"></div>
+  </section>
+
+  <section>
+    <h2>Audit trail <span class="badge-ok" id="chainbadge"></span></h2>
+    <p class="sub" style="font-size:13.5px">Immutable, hash-chained log of everything every agent did — including the three
+    forbidden ERP actions the agents attempted in the separation-of-duties self-test, refused by the ERP's permission system.</p>
+    <div class="audit mono" id="audit" style="margin-top:10px"></div>
+  </section>
+
+  <footer>
+    Regenerate from source: <code>python3 run_demo.py</code> then <code>python3 build_dashboard.py</code>.
+    The mock extraction seam (<code>agents/extraction_agent.py</code>) is where a vision/LLM model plugs in;
+    every control shown here is deterministic code and survives a bad model day.
+  </footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const GROUPS = {
+  ok:   { label: "Touchless", sym: "✓", color: "var(--ok)",
+          st: ["TOUCHLESS_POSTED"] },
+  info: { label: "Posted / awaiting approvals", sym: "◆", color: "var(--info)",
+          st: ["POSTED_AWAITING_PAYMENT_APPROVAL", "DRAFT_AWAITING_TWO_APPROVALS"] },
+  warn: { label: "Routed to a person", sym: "▲", color: "var(--warn)",
+          st: ["HUMAN_VERIFY_QUEUE","EXCEPTION_PRICE","EXCEPTION_QUANTITY","EXCEPTION_GST",
+               "EXCEPTION_UNKNOWN_VENDOR","EXCEPTION_PO","PO_SUGGESTED_ONE_CLICK",
+               "NON_PO_APPROVAL","NEW_VENDOR_REVIEW"] },
+  crit: { label: "Blocked / held", sym: "✕", color: "var(--crit)",
+          st: ["BLOCKED_DUPLICATE","HELD_NEAR_DUPLICATE","HELD_FRAUD_REVIEW"] },
+};
+const STATUS_LABEL = {
+  TOUCHLESS_POSTED: "Touchless · posted", POSTED_AWAITING_PAYMENT_APPROVAL: "Posted · manager approval",
+  DRAFT_AWAITING_TWO_APPROVALS: "Draft · two approvers", HUMAN_VERIFY_QUEUE: "Human verify",
+  EXCEPTION_PRICE: "Price mismatch", EXCEPTION_QUANTITY: "Qty over receipt", EXCEPTION_GST: "GST issue",
+  EXCEPTION_UNKNOWN_VENDOR: "Unknown vendor", EXCEPTION_PO: "PO issue",
+  PO_SUGGESTED_ONE_CLICK: "PO found · 1-click confirm", NON_PO_APPROVAL: "Non-PO approval",
+  BLOCKED_DUPLICATE: "Duplicate · blocked", HELD_NEAR_DUPLICATE: "Near-duplicate · held",
+  HELD_FRAUD_REVIEW: "Fraud review · held", NEW_VENDOR_REVIEW: "New vendor · review",
+};
+const SRC = { "e-invoice-qr": "e-inv QR", "pdf-text": "PDF text", "ocr-vlm": "OCR+VLM" };
+const grpOf = s => Object.keys(GROUPS).find(g => GROUPS[g].st.includes(s)) || "warn";
+const inr = n => n.toLocaleString("en-IN", { maximumFractionDigits: 0 });
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+const inv = DATA.invoices;
+
+// ---- invariants strip ----
+const injections = inv.filter(i => i.anomaly_flags.length).length;
+document.getElementById("invariants").innerHTML = [
+  `<b>0</b>&nbsp;failed checks reached a payment state`,
+  `<b>${DATA.erp_permission_denials.length}/3</b>&nbsp;forbidden ERP actions refused (SoD self-test)`,
+  `<b>${DATA.audit_log.length}</b>&nbsp;audit entries, hash chain ${DATA.audit_chain_intact ? "intact" : "BROKEN"}`,
+  `<b>${injections}</b>&nbsp;prompt-injection attempt quarantined as data`,
+].map(t => `<div class="invariant"><span style="color:var(--ok);font-weight:700">✓</span><span>${t}</span></div>`).join("");
+
+// ---- KPIs ----
+const touchless = inv.filter(i => grpOf(i.status) === "ok");
+const humans = inv.filter(i => ["warn","crit"].includes(grpOf(i.status)));
+const posted = inv.filter(i => i.erp_ref && i.status !== "DRAFT_AWAITING_TWO_APPROVALS" &&
+                               !["HELD_FRAUD_REVIEW","NEW_VENDOR_REVIEW"].includes(i.status));
+const value = inv.reduce((s, i) => s + i.fields.total.value, 0);
+document.getElementById("kpis").innerHTML = [
+  ["Invoices in batch", inv.length, `${DATA.dropped_at_intake.length} more dropped at intake`],
+  ["Touchless", `${touchless.length} · ${Math.round(100 * touchless.length / inv.length)}%`,
+   "sample is adversarial by design"],
+  ["Routed to people", humans.length, "each with a named owner"],
+  ["Posted to ERP", posted.length, "rest parked as drafts"],
+  ["Batch value", `₹${inr(value)}`, "no payment auto-released"],
+].map(([l, v, h]) => `<div class="kpi"><div class="label">${l}</div><div class="value">${v}</div><div class="hint">${h}</div></div>`).join("");
+
+// ---- disposition bar ----
+const counts = Object.entries(GROUPS).map(([g, cfg]) => [g, cfg, inv.filter(i => grpOf(i.status) === g).length]);
+document.getElementById("bar").innerHTML = counts.map(([g, cfg, n]) =>
+  `<div style="flex:${n};background:${cfg.color}" title="${cfg.label}: ${n} invoice${n === 1 ? "" : "s"}"></div>`).join("");
+document.getElementById("legend").innerHTML = counts.map(([g, cfg, n]) =>
+  `<span><span class="dot" style="background:${cfg.color}"></span>${cfg.sym} ${cfg.label} — <b class="num">${n}</b></span>`).join("");
+
+// ---- filters + table ----
+let filter = "all";
+const filtersEl = document.getElementById("filters");
+filtersEl.innerHTML = [["all", `All (${inv.length})`], ...counts.map(([g, cfg, n]) => [g, `${cfg.sym} ${cfg.label} (${n})`])]
+  .map(([k, l]) => `<button data-f="${k}" class="${k === "all" ? "on" : ""}">${l}</button>`).join("");
+filtersEl.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  filter = b.dataset.f;
+  filtersEl.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+  render();
+});
+
+function detailHTML(i) {
+  const checks = i.checks.map(c => `<div class="check ${c.passed ? "pass" : "fail"}">
+      <span class="mark">${c.passed ? "✓" : "✗"}</span>
+      <span><span class="name">${esc(c.check)}</span>${c.detail ? ` — ${esc(c.detail)}` : ""}</span></div>`).join("");
+  const excs = i.exceptions.map(e => `<div class="exc"><b>${esc(e.type)}</b> — ${esc(e.detail)}</div>`).join("");
+  const notes = i.notes.map(n => `<div class="note">${esc(n)}</div>`).join("");
+  const drafts = i.drafts.map(d => `<div class="draft"><span class="to">${esc(d.to)}</span> · ${esc(d.subject)}<br>${esc(d.body)} <em>(requires human send)</em></div>`).join("");
+  const slice = DATA.audit_log.filter(a => a.work_id === i.work_id)
+    .map(a => `<div class="check pass"><span class="mark" style="color:var(--ink3);width:34px">#${a.seq}</span>
+      <span><span class="name">${esc(a.actor)}</span> ${esc(a.event)}${a.detail ? " — " + esc(a.detail) : ""}</span></div>`).join("");
+  const lowFields = Object.entries(i.fields).filter(([, f]) => f && f.value !== null && f.confidence < 0.9)
+    .map(([n, f]) => `${n} (${f.confidence.toFixed(2)})`).join(", ");
+  return `<div class="detail-inner">
+    <div>
+      <h3>Checks (${i.checks.filter(c => c.passed).length}/${i.checks.length} passed)</h3>${checks || "—"}
+      ${lowFields ? `<h3>Low-confidence fields</h3><div class="kv">${esc(lowFields)} — human sees image side-by-side</div>` : ""}
+      ${excs ? `<h3>Exceptions</h3>${excs}` : ""}
+    </div>
+    <div>
+      <div class="kv">
+        ${i.erp_ref ? `<b>ERP ref</b> <span class="mono">${esc(i.erp_ref)}</span><br>` : ""}
+        ${i.payment_state ? `<b>Payment</b> ${esc(i.payment_state)}<br>` : "<b>Payment</b> none — not payable in this state<br>"}
+        ${i.queue ? `<b>Queue</b> ${esc(i.queue)} → ${esc(i.route_to)}` : ""}
+      </div>
+      ${notes ? `<h3>Notes</h3>${notes}` : ""}
+      ${i.anomaly_flags.length ? `<h3>Anomaly flags</h3>${i.anomaly_flags.map(f => `<div class="exc"><b>FLAG</b> — ${esc(f)}</div>`).join("")}` : ""}
+      ${drafts ? `<h3>Drafted messages</h3>${drafts}` : ""}
+      <h3>Audit slice</h3>${slice}
+    </div>
+  </div>`;
+}
+
+const open = new Set();
+function render() {
+  const rows = [];
+  inv.filter(i => filter === "all" || grpOf(i.status) === filter).forEach(i => {
+    const g = grpOf(i.status), cfg = GROUPS[g];
+    const src = i.fields.invoice_number.source;
+    rows.push(`<tr class="row" data-id="${i.work_id}" tabindex="0" aria-expanded="${open.has(i.work_id)}">
+      <td><span class="caret">${open.has(i.work_id) ? "▾" : "▸"}</span></td>
+      <td class="mono">${i.work_id}</td>
+      <td class="mono">${esc(i.fields.invoice_number.value)}</td>
+      <td>${esc(i.fields.vendor_name.value)}</td>
+      <td><span class="tier">${SRC[src] || src}</span></td>
+      <td class="r mono">${inr(i.fields.total.value)}</td>
+      <td><span class="pill ${g}">${cfg.sym} ${STATUS_LABEL[i.status] || i.status}</span></td>
+      <td style="color:var(--ink2)">${i.route_to ? esc(i.route_to) : "—"}</td>
+    </tr>`);
+    if (open.has(i.work_id)) rows.push(`<tr class="detail"><td colspan="8">${detailHTML(i)}</td></tr>`);
+  });
+  document.getElementById("rows").innerHTML = rows.join("");
+}
+document.getElementById("rows").addEventListener("click", e => {
+  const r = e.target.closest("tr.row"); if (!r) return;
+  open.has(r.dataset.id) ? open.delete(r.dataset.id) : open.add(r.dataset.id);
+  render();
+});
+document.getElementById("rows").addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const r = e.target.closest("tr.row"); if (!r) return;
+  e.preventDefault();
+  open.has(r.dataset.id) ? open.delete(r.dataset.id) : open.add(r.dataset.id);
+  render();
+});
+render();
+
+// ---- queues ----
+const qmap = {};
+inv.filter(i => i.queue).forEach(i => {
+  (qmap[i.queue] = qmap[i.queue] || { owner: i.route_to, items: [] }).items.push(i);
+});
+document.getElementById("queues").innerHTML = Object.entries(qmap).map(([q, v]) =>
+  `<div class="queue"><div class="qname">${esc(q)}</div><div class="owner">owner: ${esc(v.owner)}</div>
+   <ul>${v.items.map(i => `<li><span class="mono">${esc(i.fields.invoice_number.value)}</span> · ₹${inr(i.fields.total.value)}</li>`).join("")}</ul></div>`).join("");
+
+// ---- audit log ----
+document.getElementById("chainbadge").textContent = DATA.audit_chain_intact
+  ? "· chain verified ✓" : "· CHAIN BROKEN";
+document.getElementById("audit").innerHTML = DATA.audit_log.map(a =>
+  `<div class="audit-row"><span style="color:var(--ink3)">${a.seq}</span>
+   <span class="actor">${esc(a.actor)}</span>
+   <span class="event">${esc(a.event)}${a.work_id ? ` <span style="color:var(--ink3)">(${a.work_id})</span>` : ""}</span>
+   <span class="det">${esc(a.detail)}</span>
+   <span class="hash">${a.prev_hash.slice(0, 6)}→${a.hash.slice(0, 6)}</span></div>`).join("");
+</script>
